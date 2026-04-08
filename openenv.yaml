@@ -1,0 +1,10 @@
+name: med-triage-env
+description: MedTriage-Env is a medical diagnostic simulator designed for post-training LLMs via RL. The agent acts as an emergency room doctor, balancing diagnostic accuracy and resource limits to prescribe correct treatment.
+version: "0.1.0"
+author: Darsh505
+tags:
+  - openenv
+  - meta
+  - python
+  - rl
+  - healthcare
