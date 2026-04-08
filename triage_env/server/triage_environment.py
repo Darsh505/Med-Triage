@@ -1,5 +1,7 @@
 import logging
+import os
 import random
+import time
 
 from openenv.core.env_server import Environment
 
@@ -27,6 +29,8 @@ class TriageEnvironment(Environment):
             self.active_patient_pool = [
                 p for p in PATIENT_POOL if getattr(p, "difficulty", "easy") == self.difficulty
             ]
+        elif self.difficulty == "infinite":
+            self.active_patient_pool = []  # Will procedurally generate in reset()
         else:
             self.active_patient_pool = PATIENT_POOL
 
@@ -68,7 +72,11 @@ class TriageEnvironment(Environment):
         Reset the environment, pick a new patient scenario,
         and return the initial observation.
         """
-        self._current_patient = self._np_random.choice(self.active_patient_pool)
+        if self.difficulty == "infinite":
+            self._current_patient = self._generate_procedural_patient()
+        else:
+            self._current_patient = self._np_random.choice(self.active_patient_pool)
+
         self._state = MedState()
 
         self._observation = MedObservation(
@@ -235,11 +243,32 @@ class TriageEnvironment(Environment):
         except Exception:
             pass  # Fallback if JSON format was irregular
 
-        # 2. Clinical After-Action Audit Report
+        # 2. Clinical After-Action Audit Report & Discharge Markdown Dump
         if done or is_truncated:
             valid_tests = self._observation.available_actions.get(ActionType.TEST.value, [])
             missed_tests = len(valid_tests) - len(new_test_results)
-            terminal_output += f"\n\n--- CLINICAL AUDIT REPORT ---\nTime Elapsed: {new_time_elapsed} mins\nCritical Tests Missed: {missed_tests}\nFinal Patient Health: {current_health * 100:.0f}%\n-----------------------------"
+            report_body = f"\n\n--- CLINICAL AUDIT REPORT ---\nTime Elapsed: {new_time_elapsed} mins\nCritical Tests Missed: {missed_tests}\nFinal Patient Health: {current_health * 100:.0f}%\n-----------------------------"
+            terminal_output += report_body
+
+            try:
+                os.makedirs("reports", exist_ok=True)
+                report_file = (
+                    f"reports/Discharge_Report_{self._current_patient.id}_{int(time.time())}.md"
+                )
+                with open(report_file, "w") as f:
+                    f.write(
+                        f"# Medical Discharge Report\n\n**Patient ID:** {self._current_patient.id}\n"
+                    )
+                    f.write(
+                        f"**Presentation:** {self._current_patient.initial_presentation}\n\n## Timeline Log\n"
+                    )
+                    for audit in self._state.audit_trail:
+                        f.write(
+                            f"- Step {audit['step']} | [ {audit['action_type'].upper()} ] -> {audit['target']} | Costs: {audit['time_spent']}m | Reward: {audit['reward']:.2f}\n"
+                        )
+                    f.write(f"\n## Clinical Conclusion\n{terminal_output}\n")
+            except Exception as e:
+                logger.error(f"Failed to generate medical discharge report: {e}")
 
         # Calculate reward
         reward = self.rubric.evaluate_action(
@@ -280,6 +309,28 @@ class TriageEnvironment(Environment):
         )
 
         return self._observation
+
+    def _generate_procedural_patient(self):
+        """
+        Dynamically synthesize a new patient scenario for infinite RL horizons.
+        """
+        import copy
+
+        # Randomly mutate patients to act as an infinite offline generation sandbox
+        # In a generic environment, you hook ChatGPT here directly via API.
+        base_patient = copy.deepcopy(self._np_random.choice(PATIENT_POOL))
+        base_patient.id = f"P_SYNTH_{random.randint(1000, 9999)}"
+        base_patient.initial_symptoms += (
+            f" (Patient arrived at {random.randint(1, 12)}:00 PM displaying atypical distress)."
+        )
+        # Perturb vitals slightly to prevent static overfitting
+        if "HR" in base_patient.vitals:
+            try:
+                hr = int(base_patient.vitals["HR"].split(" ")[0])
+                base_patient.vitals["HR"] = f"{hr + random.randint(-15, 15)} bpm"
+            except Exception:
+                pass
+        return base_patient
 
     def state(self) -> MedState:
         return self._state

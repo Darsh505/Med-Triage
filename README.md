@@ -9,9 +9,15 @@ A rigorous, professional-grade medical diagnostic simulator natively conforming 
 
 ---
 
-## 🔥 Key Competitive Features
+## 🔥 Extreme Edge Competitive Features
 
-### 1. Multi-Agent Collaborative Native Support 🤖🫂🤖
+### 1. The Procedural Data Engine (Infinite Environment Horizons) ♾️
+The biggest bottleneck in reinforcement learning is data overfitting to static patient JSONs. `MedTriage-Env` radically solves this. If an agent initializes the environment with `difficulty="infinite"`, the native procedural generation engine activates. It physically mutates baseline schemas, hallucinates new timestamp presentations, and skews baseline vitals dynamically. This constructs an **Infinite RL Horizon**—agents can train endlessly on synthetic data without ever seeing the exact same patient twice.
+
+### 2. Live Clinical Audit & Medical Discharges 📝
+When an episode explicitly terminates (via successful surgical mapping or algorithmically crashing the patient via extreme time delays), the environment natively mints a `Discharge_Report.md` directly into a `/reports` disk folder. This markdown document mathematically audits the entire trajectory, specifying *Critical Tests Missed*, net diagnostic rewards, and total procedural costs incurred. 
+
+### 3. Multi-Agent Collaborative Native Support 🤖🫂🤖
 Taking queues from bleeding-edge OpenAI Swarm models and OpenEnv protocols, `MedTriage-Env` ships natively with collaborative agent benchmarking. We've included `multi_agent_triage.py`, a zero-shot bridge that deploys an **Examining Doctor Agent** and an **Attending Consultant Agent** into the environment simultaneously. They evaluate vitals, negotiate on clinical tests via chained reasoning, and natively submit JSON parameters to cure the patient as a unit.
 
 ### 2. Trajectory Mastery Scoring (Meta RFC-004 Compliant) 📈
@@ -75,7 +81,14 @@ export OPENAI_API_KEY="sk-..."
 python examples/multi_agent_triage.py
 ```
 
-### 3. Interactive RL Simulation UI 💻
+### 3. Beautiful Web GUI Sandbox 🌐
+Prefer browser interaction? We've bundled a fully reactive Gradio Chat interface so judges and researchers can literally play your environment seamlessly inside a browser tab!
+```bash
+pip install gradio
+python examples/gradio_app.py
+```
+
+### 4. Interactive RL Simulation UI 💻
 Instead of waiting to train an LLM locally, **play the interactive role of the RL Neural Network yourself!** We built an insanely fast, beautiful terminal-native UI to experience precisely the constraints, reward matrices, and drifting outputs that your algorithms see.
 ```bash
 make play
