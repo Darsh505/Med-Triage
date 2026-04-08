@@ -1,3 +1,11 @@
+---
+title: Med Triage Env
+emoji: 🏥
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+---
 # MedTriage-Env 
 
 ![CI Validation](https://github.com/Darsh505/Med-Triage/actions/workflows/tests.yml/badge.svg)
