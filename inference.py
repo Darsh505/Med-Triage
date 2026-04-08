@@ -43,8 +43,12 @@ def run_inference():
         env = TriageEnvironment(difficulty="hard")
         
     obs = env.reset()
+    print("[START] task=med_triage", flush=True)
+    step = 0
+    total_reward = 0.0
     
     while getattr(obs, "done", False) is False and getattr(obs, "truncated", False) is False:
+        step += 1
         prompt = f"Time Elapsed: {getattr(obs, 'time_elapsed', 0)}. Health: {getattr(obs, 'patient_health_status', 1)}.\nVitals: {getattr(obs, 'patient_vitals', {})}\nObservation: {getattr(obs, 'terminal_output', '')}\nAvailable: {getattr(obs, 'available_actions', {})}"
         print("\nThinking...")
         response_text = query_llm(prompt, api_key)
@@ -58,12 +62,17 @@ def run_inference():
             )
             print(f"> LLM Chose: {action.action_type.value.upper()} {action.target}")
             obs = env.step(action)
-            time.sleep(1)
         except Exception:
             obs = env.step(MedAction(action_type=ActionType.EXAMINE, target="hallucinated_invalid"))
             
+        reward = getattr(obs, "reward", 0.0)
+        total_reward += float(reward)
+        print(f"[STEP] step={step} reward={reward}", flush=True)
+        time.sleep(1)
+            
     print("\n=== INFERENCE EPISODE FINISHED ===")
     print(getattr(obs, "terminal_output", ""))
+    print(f"[END] task=med_triage score={total_reward} steps={step}", flush=True)
 
 if __name__ == "__main__":
     run_inference()
