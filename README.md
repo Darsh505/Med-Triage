@@ -11,10 +11,10 @@ A rigorous, professional-grade medical diagnostic simulator natively conforming 
 
 ## Extreme Edge Competitive Features
 
-### 1. The Procedural Data Engine (Infinite Environment Horizons) ♾️
+### 1. The Procedural Data Engine (Infinite Environment Horizons)
 The biggest bottleneck in reinforcement learning is data overfitting to static patient JSONs. `MedTriage-Env` radically solves this. If an agent initializes the environment with `difficulty="infinite"`, the native procedural generation engine activates. It physically mutates baseline schemas, hallucinates new timestamp presentations, and skews baseline vitals dynamically. This constructs an **Infinite RL Horizon**—agents can train endlessly on synthetic data without ever seeing the exact same patient twice.
 
-### 2. Live Clinical Audit & Medical Discharges 📝
+### 2. Live Clinical Audit & Medical Discharges
 When an episode explicitly terminates (via successful surgical mapping or algorithmically crashing the patient via extreme time delays), the environment natively mints a `Discharge_Report.md` directly into a `/reports` disk folder. This markdown document mathematically audits the entire trajectory, specifying *Critical Tests Missed*, net diagnostic rewards, and total procedural costs incurred. 
 
 ### 3. Multi-Agent Collaborative Native Support 
