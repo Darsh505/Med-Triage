@@ -10,6 +10,8 @@ class ActionType(str, Enum):
     TEST = "TEST"
     DIAGNOSE = "DIAGNOSE"
     TREAT = "TREAT"
+    CONSULT = "CONSULT"
+    INTERVIEW = "INTERVIEW"
 
 
 class MedAction(Action):
@@ -50,11 +52,27 @@ class MedObservation(Observation):
     )
     done: bool = Field(
         False,
-        description="Whether the episode has terminated.",
+        description="Whether the episode has terminated ordinarily.",
+    )
+    truncated: bool = Field(
+        False,
+        description="Whether the episode was truncated due to max steps boundary limit.",
+    )
+    time_elapsed: int = Field(
+        0,
+        description="Time elapsed in the episode in minutes.",
+    )
+    patient_health_status: float = Field(
+        1.0,
+        description="Health status of the patient (1.0 healthy, 0.0 critical).",
     )
     reward: float = Field(
         0.0,
         description="The reward accumulated from the last step.",
+    )
+    available_actions: Dict[str, list[str]] = Field(
+        default_factory=dict,
+        description="A list of allowed target strings dynamically enumerated for each ActionType.",
     )
 
 
@@ -67,4 +85,8 @@ class MedState(State):
     total_reward: float = Field(0.0, description="Total reward accumulated so far.")
     diagnosis_submitted: bool = Field(
         False, description="Whether a diagnosis was successfully submitted."
+    )
+    audit_trail: list[dict] = Field(
+        default_factory=list,
+        description="A trace logger of action targets and rewards.",
     )

@@ -19,32 +19,58 @@ class MedDenseRubric(Rubric):
         action: MedAction,
         is_diagnosis_correct: bool = False,
         is_treatment_correct: bool = False,
+        time_elapsed: int = 0,
+        patient_health_status: float = 1.0,
+        is_hallucinated: bool = False,
+        is_truncated: bool = False,
     ) -> float:
         """
         Evaluate a single MedAction.
-        Note: The actual correct/incorrect check is done by the environment and passed here.
+        Reward scales with patient_health_status.
         """
-        if action.action_type == ActionType.EXAMINE:
-            return -0.01
+        if is_truncated:
+            return -5.0  # Massive crash penalty
+
+        if is_hallucinated:
+            return -1.0  # Strict anti-hallucination bounds
+
+        if action.action_type == ActionType.INTERVIEW:
+            reward = 0.0  # Free to ask questions mostly!
+        elif action.action_type == ActionType.EXAMINE:
+            reward = -0.01
         elif action.action_type == ActionType.TEST:
-            return -0.05
+            reward = -0.05
+        elif action.action_type == ActionType.CONSULT:
+            reward = -0.15  # Severe penalty for hint
         elif action.action_type == ActionType.DIAGNOSE:
             if is_diagnosis_correct:
-                return 0.60
+                reward = max(0.20, 0.60 * patient_health_status)
             else:
-                return -0.50
+                reward = -0.50
         elif action.action_type == ActionType.TREAT:
             if is_treatment_correct:
-                return 0.40
+                reward = max(0.10, 0.40 * patient_health_status)
             else:
-                return -0.50
+                reward = -0.50
+        else:
+            reward = 0.0
 
-        # Default zero reward
-        return 0.0
+        # ML Regularization: Clip reward bounds to stabilize divergence
+        return min(max(reward, -2.0), 1.0)
 
     async def score(self, trajectory):
         """
-        Required by some versions of openenv Rubric if they use trajectory scoring natively.
-        We primarily rely on explicit reward shaping per step.
+        RFC-004 Alignment: Trajectory Mastery Scoring.
+        Reward high-efficiency end-of-episode outcomes.
         """
-        pass
+        if not trajectory:
+            return 0.0
+
+        final_obs = trajectory[-1].observation
+
+        # Mastery Bonus: if agent survived and cured patient perfectly in under 30 minutes!
+        if final_obs.done and not final_obs.truncated and final_obs.patient_health_status > 0.5:
+            if final_obs.time_elapsed <= 30:
+                return 3.0
+
+        return 0.0
