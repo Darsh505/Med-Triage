@@ -26,5 +26,7 @@ line-length = 100
 
 [tool.usort]
 
+[tool.setuptools.packages.find]
+include = ["triage_env*", "server*"]
 [project.scripts]
 server = "server.app:main"
