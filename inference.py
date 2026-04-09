@@ -2,16 +2,13 @@
 """
 inference.py — Chain-of-Thought Clinical Reasoning Agent for MedTriage-Env.
 
-Implements the ABCDE assessment protocol with differential diagnosis tracking,
-evidence accumulation, and clinical confidence scoring.
-
-Uses the hackathon-provided LiteLLM proxy (API_BASE_URL + MODEL_NAME).
+Uses the hackathon-provided LiteLLM proxy via the OpenAI Python client.
+Reads API_BASE_URL and API_KEY from environment variables.
 Prints [START]/[STEP]/[END] structured blocks to stdout for Phase 2 validation.
 """
 import sys
 import os
 import json
-import urllib.request
 
 # Force unbuffered stdout
 if hasattr(sys.stdout, "reconfigure"):
@@ -20,6 +17,8 @@ else:
     os.environ["PYTHONUNBUFFERED"] = "1"
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from openai import OpenAI
 
 from triage_env.server.triage_environment import TriageEnvironment
 from triage_env.models import MedAction, ActionType
@@ -30,16 +29,16 @@ CLINICAL_PROTOCOL = """You are an expert emergency medicine physician following 
 
 ## Protocol
 1. **A**irway - Check for obstruction, stridor, angioedema
-2. **B**reathing - Assess respiratory rate, SpO2, breath sounds, work of breathing
-3. **C**irculation - Evaluate HR, BP, capillary refill, skin color, JVD
-4. **D**isability - Neurological status, GCS, pupils, focal deficits
+2. **B**reathing - Assess respiratory rate, SpO2, breath sounds
+3. **C**irculation - Evaluate HR, BP, capillary refill, skin color
+4. **D**isability - Neurological status, GCS, pupils
 5. **E**xposure - Full examination, skin findings, temperature
 
 ## Decision Framework
 - Gather evidence systematically before diagnosing
 - Interview patient for history, medications, allergies EARLY
-- Order tests that will change management (high-yield tests first)
-- Stabilize critically ill patients (ESI 1-2) before definitive diagnosis
+- Order high-yield tests first
+- Stabilize critically ill patients before definitive diagnosis
 - Diagnose only when you have sufficient evidence
 - Treat promptly after diagnosis
 
@@ -51,42 +50,22 @@ Valid action_types: INTERVIEW, EXAMINE, TEST, STABILIZE, DIAGNOSE, TREAT
 Pick targets from the available_actions provided."""
 
 
-def query_llm(prompt: str, api_base_url: str, model_name: str, api_key: str) -> str:
-    """Call the hackathon's LiteLLM proxy."""
-    base = api_base_url.rstrip("/")
-    urls_to_try = []
-    if "/chat/completions" in base:
-        urls_to_try.append(base)
-    elif base.endswith("/v1"):
-        urls_to_try.append(base + "/chat/completions")
-    else:
-        urls_to_try.append(base + "/v1/chat/completions")
-        urls_to_try.append(base + "/chat/completions")
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}",
-    }
-    data = {
-        "model": model_name,
-        "messages": [
-            {"role": "system", "content": CLINICAL_PROTOCOL},
-            {"role": "user", "content": prompt},
-        ],
-        "temperature": 0.2,
-        "max_tokens": 200,
-    }
-    payload = json.dumps(data).encode("utf-8")
-
-    for url in urls_to_try:
-        try:
-            req = urllib.request.Request(url, data=payload, headers=headers, method="POST")
-            with urllib.request.urlopen(req, timeout=30) as response:
-                result = json.loads(response.read().decode("utf-8"))
-                return result["choices"][0]["message"]["content"].strip()
-        except Exception:
-            continue
-    return ""
+def query_llm(client: OpenAI, prompt: str, model_name: str) -> str:
+    """Call the hackathon's LiteLLM proxy via the OpenAI client."""
+    try:
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": CLINICAL_PROTOCOL},
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.2,
+            max_tokens=200,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"> LLM proxy error: {e}", flush=True)
+        return ""
 
 
 def parse_llm_action(response_text: str, available_actions: dict, step: int) -> tuple:
@@ -120,16 +99,16 @@ def parse_llm_action(response_text: str, available_actions: dict, step: int) -> 
 
     if step == 1 and interview_targets:
         t = "onset" if "onset" in interview_targets else interview_targets[0]
-        return MedAction(action_type=ActionType.INTERVIEW, target=t), "Gathering chief complaint history"
+        return MedAction(action_type=ActionType.INTERVIEW, target=t), "Gathering chief complaint"
     if step == 2 and exam_targets:
-        return MedAction(action_type=ActionType.EXAMINE, target=exam_targets[0]), "Physical examination per ABCDE"
+        return MedAction(action_type=ActionType.EXAMINE, target=exam_targets[0]), "Physical exam per ABCDE"
     if step == 3 and interview_targets and len(interview_targets) > 1:
         t = "medications" if "medications" in interview_targets else interview_targets[1]
-        return MedAction(action_type=ActionType.INTERVIEW, target=t), "Medication history review"
+        return MedAction(action_type=ActionType.INTERVIEW, target=t), "Medication history"
     if step == 4 and test_targets:
-        return MedAction(action_type=ActionType.TEST, target=test_targets[0]), "Ordering high-yield diagnostic test"
+        return MedAction(action_type=ActionType.TEST, target=test_targets[0]), "High-yield diagnostic test"
     if step == 5 and diag_targets:
-        return MedAction(action_type=ActionType.DIAGNOSE, target=diag_targets[0]), "Submitting clinical diagnosis"
+        return MedAction(action_type=ActionType.DIAGNOSE, target=diag_targets[0]), "Clinical diagnosis"
     if treat_targets:
         return MedAction(action_type=ActionType.TREAT, target=treat_targets[0]), "Initiating treatment"
 
@@ -138,13 +117,15 @@ def parse_llm_action(response_text: str, available_actions: dict, step: int) -> 
 
 def run_inference():
     """Run inference with chain-of-thought clinical reasoning."""
-    api_base_url = os.environ.get("API_BASE_URL", "")
+    # Read hackathon-provided environment variables — API_KEY is primary
+    api_base_url = os.environ.get("API_BASE_URL", "https://api.openai.com/v1")
+    api_key = os.environ.get("API_KEY", os.environ.get("OPENAI_API_KEY", "no-key"))
     model_name = os.environ.get("MODEL_NAME", "gpt-4o-mini")
-    api_key = (
-        os.environ.get("OPENAI_API_KEY")
-        or os.environ.get("API_KEY")
-        or os.environ.get("HF_TOKEN")
-        or "no-key"
+
+    # Initialize OpenAI client pointing at the hackathon's LiteLLM proxy
+    client = OpenAI(
+        base_url=api_base_url,
+        api_key=api_key,
     )
 
     env = TriageEnvironment(difficulty="hard")
@@ -159,25 +140,23 @@ def run_inference():
     while not getattr(obs, "done", False) and not getattr(obs, "truncated", False):
         step += 1
         available = getattr(obs, "available_actions", {})
-        clinical_notes = getattr(obs, "clinical_notes", [])
-        sepsis_risk = getattr(obs, "sepsis_risk", 0.0)
 
         prompt = (
-            f"## Current Clinical State (Step {step}/20)\n\n"
-            f"**Patient vitals:** {getattr(obs, 'patient_vitals', {})}\n"
-            f"**Current observation:** {getattr(obs, 'terminal_output', '')}\n"
-            f"**Test results so far:** {getattr(obs, 'test_results', {})}\n"
-            f"**Time elapsed:** {getattr(obs, 'time_elapsed', 0)} mins\n"
-            f"**Health status:** {getattr(obs, 'patient_health_status', 1.0):.0%}\n"
-            f"**ESI Level:** {getattr(obs, 'esi_level', 3)}\n"
-            f"**Sepsis risk:** {sepsis_risk:.2f}\n"
-            f"**Medications given:** {getattr(obs, 'medications_administered', [])}\n"
-            f"**Evidence gathered so far:** {json.dumps(evidence_log[-5:])}\n"
+            f"## Clinical State (Step {step}/20)\n\n"
+            f"**Vitals:** {getattr(obs, 'patient_vitals', {})}\n"
+            f"**Observation:** {getattr(obs, 'terminal_output', '')}\n"
+            f"**Tests done:** {getattr(obs, 'test_results', {})}\n"
+            f"**Time:** {getattr(obs, 'time_elapsed', 0)} mins\n"
+            f"**Health:** {getattr(obs, 'patient_health_status', 1.0):.0%}\n"
+            f"**ESI:** {getattr(obs, 'esi_level', 3)}\n"
+            f"**Sepsis risk:** {getattr(obs, 'sepsis_risk', 0.0):.2f}\n"
+            f"**Meds given:** {getattr(obs, 'medications_administered', [])}\n"
+            f"**Evidence so far:** {json.dumps(evidence_log[-5:])}\n"
             f"**Available actions:** {json.dumps(available)}\n\n"
-            f"What is the best next clinical action? Follow ABCDE protocol."
+            f"What is the best next clinical action?"
         )
 
-        llm_response = query_llm(prompt, api_base_url, model_name, api_key)
+        llm_response = query_llm(client, prompt, model_name)
         action, reasoning = parse_llm_action(llm_response, available, step)
 
         evidence_log.append({"step": step, "action": action.action_type.value, "target": action.target})
