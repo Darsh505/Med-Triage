@@ -2,306 +2,916 @@
     {
         "id": "P001",
         "initial_symptoms": "Patient presents with right lower quadrant (RLQ) pain, nausea, and fever.",
-        "vitals": {
-            "HR": "105",
-            "BP": "120/80",
-            "Temp": "101.2F",
-            "RR": "18"
-        },
+        "vitals": {"HR": "105", "BP": "120/80", "Temp": "101.2F", "RR": "18", "SpO2": "98%"},
         "exam_findings": {
-            "abdomen": "RLQ rebound tenderness and guarding."
+            "abdomen": "RLQ rebound tenderness and guarding.",
+            "general": "Patient appears uncomfortable, guarding right side."
         },
         "test_results": {
             "blood_cbc": "WBC 16,000 (Elevated)",
-            "ultrasound_abdomen": "Enlarged appendix with periappendiceal fluid."
+            "ultrasound_abdomen": "Enlarged appendix with periappendiceal fluid.",
+            "crp": "Elevated at 45 mg/L"
         },
         "correct_diagnosis": "appendicitis",
         "correct_treatment": "surgery",
         "difficulty": "easy",
+        "esi_level": 3,
+        "initial_presentation": "28M, acute abdominal pain x 12h, migrated from periumbilical to RLQ. No prior surgeries.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
             "family_history": "Mother had appendicitis at age 20.",
             "allergies": "No known drug allergies.",
-            "social_history": "Drinks alcohol occasionally."
+            "social_history": "Drinks alcohol occasionally.",
+            "onset": "Pain started around the belly button 12 hours ago, then moved to the right lower area.",
+            "pain_scale": "7 out of 10, sharp and constant.",
+            "medications": "No current medications."
         }
     },
     {
         "id": "P002",
         "initial_symptoms": "Patient presents with sudden onset of left-sided weakness and slurred speech.",
-        "vitals": {
-            "HR": "88",
-            "BP": "180/100",
-            "Temp": "98.6F",
-            "RR": "16"
-        },
+        "vitals": {"HR": "88", "BP": "180/100", "Temp": "98.6F", "RR": "16", "SpO2": "97%"},
         "exam_findings": {
-            "neurological": "Left facial droop, left arm drift, expressive aphasia."
+            "neurological": "Left facial droop, left arm drift, expressive aphasia. NIHSS score approximately 12.",
+            "cardiovascular": "Irregular rhythm suggestive of atrial fibrillation."
         },
         "test_results": {
             "ct_head": "No acute hemorrhage. Early signs of ischemic changes in right MCA territory.",
-            "blood_glucose": "110 mg/dL"
+            "blood_glucose": "110 mg/dL",
+            "pt_inr": "INR 1.0 (Normal)",
+            "blood_cbc": "WBC 8,500, Platelets 210,000"
         },
         "correct_diagnosis": "ischemic_stroke",
         "correct_treatment": "thrombolytics",
         "difficulty": "hard",
+        "esi_level": 1,
+        "initial_presentation": "72M, witnessed onset of left-sided weakness and speech difficulty 45 minutes ago. Last known well at 0800.",
+        "comorbidities": ["hypertension", "atrial_fibrillation", "diabetes_type_2"],
+        "current_medications": ["metformin", "lisinopril"],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
             "family_history": "Father died of stroke.",
             "allergies": "Penicillin.",
-            "social_history": "Smokes 1 pack a day."
+            "social_history": "Smokes 1 pack a day for 40 years.",
+            "onset": "Wife says I was fine at breakfast, then suddenly couldn't move my left arm.",
+            "pain_scale": "No pain reported.",
+            "medications": "Metformin 500mg twice daily, Lisinopril 10mg daily. Not taking any blood thinners."
         }
     },
     {
         "id": "P003",
         "initial_symptoms": "Patient complaining of severe crushing chest pain radiating to the left arm, and diaphoresis.",
-        "vitals": {
-            "HR": "110",
-            "BP": "150/90",
-            "Temp": "98.8F",
-            "RR": "22"
-        },
+        "vitals": {"HR": "110", "BP": "150/90", "Temp": "98.8F", "RR": "22", "SpO2": "94%"},
         "exam_findings": {
-            "chest": "Clear to auscultation. Heart regular rate, clammy skin."
+            "chest": "Clear to auscultation. Heart regular rate, clammy skin.",
+            "cardiovascular": "S4 gallop noted. Jugular venous distension."
         },
         "test_results": {
-            "ecg": "ST elevation in leads II, III, aVF.",
-            "blood_troponin": "Elevated at 0.5 ng/mL"
+            "ecg": "ST elevation in leads II, III, aVF indicating inferior STEMI.",
+            "blood_troponin": "Elevated at 0.5 ng/mL (Normal <0.04)",
+            "chest_xray": "No acute pulmonary pathology. Mild cardiomegaly."
         },
         "correct_diagnosis": "myocardial_infarction",
         "correct_treatment": "pci_and_aspirin",
         "difficulty": "hard",
+        "esi_level": 1,
+        "initial_presentation": "58M, crushing substernal chest pain x 2h, radiating to left arm. Diaphoretic and anxious.",
+        "comorbidities": ["hypertension", "hyperlipidemia", "obesity"],
+        "current_medications": ["atorvastatin", "amlodipine"],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
-            "family_history": "Extensive history of CAD.",
+            "family_history": "Extensive history of CAD. Father had MI at 55.",
             "allergies": "None.",
-            "social_history": "Inactive lifestyle."
+            "social_history": "Inactive lifestyle. Former smoker.",
+            "onset": "Started 2 hours ago while watching TV. Feels like an elephant on my chest.",
+            "pain_scale": "9 out of 10.",
+            "medications": "Atorvastatin 40mg, Amlodipine 5mg daily."
         }
     },
     {
         "id": "P004",
         "initial_symptoms": "Patient reports high fever, productive cough with rust-colored sputum, and chills for 3 days.",
-        "vitals": {
-            "HR": "115",
-            "BP": "110/70",
-            "Temp": "103.5F",
-            "RR": "24"
-        },
+        "vitals": {"HR": "115", "BP": "110/70", "Temp": "103.5F", "RR": "24", "SpO2": "91%"},
         "exam_findings": {
-            "chest": "Crackles and decreased breath sounds in the right lower lobe."
+            "chest": "Crackles and decreased breath sounds in the right lower lobe. Egophony present.",
+            "general": "Appears acutely ill, flushed, using accessory muscles."
         },
         "test_results": {
-            "chest_xray": "Consolidation in the right lower lobe.",
-            "blood_cbc": "WBC 18,000"
+            "chest_xray": "Dense consolidation in the right lower lobe with air bronchograms.",
+            "blood_cbc": "WBC 18,000 with left shift",
+            "blood_culture": "Pending. Gram stain shows gram-positive diplococci.",
+            "procalcitonin": "Elevated at 8.5 ng/mL"
         },
         "correct_diagnosis": "pneumonia",
         "correct_treatment": "antibiotics",
         "difficulty": "easy",
+        "esi_level": 2,
+        "initial_presentation": "65F, productive cough with rust sputum x 3d, high fever, rigors. Lives alone.",
+        "comorbidities": ["copd", "diabetes_type_2"],
+        "current_medications": ["metformin", "tiotropium_inhaler"],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
             "family_history": "Non-contributory.",
             "allergies": "None.",
-            "social_history": "Non-contributory."
+            "social_history": "Non-smoker. Lives independently.",
+            "onset": "Started with a dry cough 5 days ago that became productive with colored sputum 3 days ago.",
+            "pain_scale": "3 out of 10, pleuritic.", 
+            "medications": "Metformin, Tiotropium inhaler."
         }
     },
     {
         "id": "P005",
         "initial_symptoms": "Patient complains of frequent watery diarrhea, abdominal cramping, and vomiting for 24 hours.",
-        "vitals": {
-            "HR": "110",
-            "BP": "100/60",
-            "Temp": "99.5F",
-            "RR": "18"
-        },
+        "vitals": {"HR": "110", "BP": "100/60", "Temp": "99.5F", "RR": "18", "SpO2": "98%"},
         "exam_findings": {
-            "abdomen": "Hyperactive bowel sounds, diffuse mild tenderness, poor skin turgor."
+            "abdomen": "Hyperactive bowel sounds, diffuse mild tenderness, poor skin turgor.",
+            "general": "Dry mucous membranes, sunken eyes, delayed capillary refill."
         },
         "test_results": {
             "stool_culture": "Pending. Rapid viral panel positive for Norovirus.",
-            "blood_cbc": "WBC 8,000 (Normal), mild hemoconcentration"
+            "blood_cbc": "WBC 8,000 (Normal), mild hemoconcentration",
+            "bmp": "BUN 35, Creatinine 1.4 (elevated), Na 148 (hypernatremic)"
         },
         "correct_diagnosis": "viral_gastroenteritis",
         "correct_treatment": "iv_fluids",
         "difficulty": "easy",
+        "esi_level": 3,
+        "initial_presentation": "34F, profuse watery diarrhea and vomiting x 24h. Unable to keep any fluids down.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
             "family_history": "Non-contributory.",
             "allergies": "None.",
-            "social_history": "Non-contributory."
+            "social_history": "Attended a potluck dinner 2 days ago. Others also fell ill.",
+            "onset": "Sudden onset yesterday morning with nausea, then vomiting and diarrhea.",
+            "pain_scale": "4 out of 10, crampy.",
+            "medications": "No current medications."
         }
     },
     {
         "id": "P006",
         "initial_symptoms": "Patient presents with acute onset of shortness of breath and pleuritic chest pain after a long flight.",
-        "vitals": {
-            "HR": "120",
-            "BP": "115/75",
-            "Temp": "99.0F",
-            "RR": "28"
-        },
+        "vitals": {"HR": "120", "BP": "115/75", "Temp": "99.0F", "RR": "28", "SpO2": "89%"},
         "exam_findings": {
-            "chest": "Clear lungs. Tachycardia. Unilateral right calf swelling."
+            "chest": "Clear lungs bilaterally. Tachycardia. Unilateral right calf swelling and warmth.",
+            "cardiovascular": "Loud P2 component. Right ventricular heave."
         },
         "test_results": {
             "d_dimer": "Elevated > 1000 ng/mL",
-            "ctpa": "Embolus in the right main pulmonary artery."
+            "ctpa": "Large saddle embolus in the right main pulmonary artery with RV strain.",
+            "ecg": "Sinus tachycardia, S1Q3T3 pattern, right axis deviation.",
+            "troponin": "Mildly elevated at 0.08 ng/mL"
         },
         "correct_diagnosis": "pulmonary_embolism",
         "correct_treatment": "anticoagulation",
         "difficulty": "hard",
+        "esi_level": 2,
+        "initial_presentation": "45F, sudden dyspnea and pleuritic chest pain 6h after 14h international flight. Right leg swelling.",
+        "comorbidities": ["obesity", "oral_contraceptive_use"],
+        "current_medications": ["oral_contraceptives"],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
-            "family_history": "Non-contributory.",
+            "family_history": "Sister had DVT during pregnancy.",
             "allergies": "None.",
-            "social_history": "Non-contributory."
+            "social_history": "On oral contraceptives for 5 years. Non-smoker.",
+            "onset": "Was fine during the flight. Suddenly couldn't breathe about 6 hours after landing.",
+            "pain_scale": "6 out of 10, sharp, worse with deep breathing.",
+            "medications": "Oral contraceptive pill (ethinyl estradiol/levonorgestrel)."
         }
     },
     {
         "id": "P007",
         "initial_symptoms": "Patient describes frequent urination, excessive thirst, and unintentional weight loss over 2 weeks.",
-        "vitals": {
-            "HR": "95",
-            "BP": "110/70",
-            "Temp": "98.4F",
-            "RR": "26"
-        },
+        "vitals": {"HR": "95", "BP": "110/70", "Temp": "98.4F", "RR": "26", "SpO2": "99%"},
         "exam_findings": {
-            "general": "Fruity breath odor. Deep, rapid breathing (Kussmaul)."
+            "general": "Fruity breath odor. Deep, rapid breathing (Kussmaul). Appears dehydrated and lethargic.",
+            "abdomen": "Diffuse mild tenderness, no guarding."
         },
         "test_results": {
             "blood_glucose": "540 mg/dL",
-            "abg": "pH 7.15, primary metabolic acidosis",
-            "urine": "Positive for severe ketones."
+            "abg": "pH 7.15, pCO2 20, HCO3 8 — primary metabolic acidosis with respiratory compensation",
+            "urine": "Positive for severe ketones. Glucose 4+.",
+            "bmp": "K+ 5.8 (elevated), Na 128 (low), Anion gap 28"
         },
         "correct_diagnosis": "diabetic_ketoacidosis",
         "correct_treatment": "iv_insulin_and_fluids",
         "difficulty": "hard",
+        "esi_level": 2,
+        "initial_presentation": "19M, polyuria/polydipsia x 2w, abdominal pain, Kussmaul breathing. No prior DM diagnosis.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
-            "family_history": "Non-contributory.",
+            "family_history": "Mother has type 1 diabetes.",
             "allergies": "None.",
-            "social_history": "Non-contributory."
+            "social_history": "College student. No alcohol or drug use.",
+            "onset": "Been drinking a lot of water and going to the bathroom frequently for 2 weeks. Lost 5kg.",
+            "pain_scale": "5 out of 10, diffuse abdominal pain.",
+            "medications": "None."
         }
     },
     {
         "id": "P008",
         "initial_symptoms": "Patient presents with severe, sharp, unilateral flank pain radiating to the groin, and hematuria.",
-        "vitals": {
-            "HR": "105",
-            "BP": "140/85",
-            "Temp": "98.9F",
-            "RR": "20"
-        },
+        "vitals": {"HR": "105", "BP": "140/85", "Temp": "98.9F", "RR": "20", "SpO2": "99%"},
         "exam_findings": {
             "abdomen": "Right costovertebral angle (CVA) tenderness. Patient constantly shifting positions."
         },
         "test_results": {
-            "urine": "Microscopic hematuria, no nitrites.",
-            "ct_abdomen": "5mm calculus in the right proximal ureter."
+            "urine": "Microscopic hematuria, no nitrites, no WBCs.",
+            "ct_abdomen": "5mm calculus in the right proximal ureter with mild hydronephrosis."
         },
         "correct_diagnosis": "nephrolithiasis",
         "correct_treatment": "pain_control_and_fluids",
         "difficulty": "easy",
+        "esi_level": 3,
+        "initial_presentation": "42M, acute colicky right flank pain radiating to groin. Pink-tinged urine. Cannot sit still.",
+        "comorbidities": ["gout"],
+        "current_medications": ["allopurinol"],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
-            "family_history": "Non-contributory.",
+            "family_history": "Father had kidney stones.",
             "allergies": "None.",
-            "social_history": "Non-contributory."
+            "social_history": "Drinks minimal water. High-protein diet.",
+            "onset": "Woke up at 3AM with excruciating pain in my right side.",
+            "pain_scale": "9 out of 10, comes in waves.",
+            "medications": "Allopurinol 300mg daily for gout."
         }
     },
     {
         "id": "P009",
         "initial_symptoms": "Patient reports progressive headache, neck stiffness, and photophobia developing over 24 hours.",
-        "vitals": {
-            "HR": "110",
-            "BP": "125/80",
-            "Temp": "102.5F",
-            "RR": "18"
-        },
+        "vitals": {"HR": "110", "BP": "125/80", "Temp": "102.5F", "RR": "18", "SpO2": "97%"},
         "exam_findings": {
-            "neurological": "Positive Brudzinski's and Kernig's signs. Altered mental status."
+            "neurological": "Positive Brudzinski's and Kernig's signs. Altered mental status. GCS 13 (E3V4M6).",
+            "general": "Petechial rash on trunk and extremities."
         },
         "test_results": {
-            "lumbar_puncture": "Cloudy CSF, high WBC (mainly neutrophils), low glucose, high protein.",
-            "ct_head": "Normal, no increased ICP limits."
+            "lumbar_puncture": "Cloudy CSF. WBC 2500 (95% neutrophils), Glucose 25 mg/dL (low), Protein 280 mg/dL (high).",
+            "ct_head": "Normal, no increased ICP, no mass effect.",
+            "blood_culture": "Pending. Gram stain: gram-negative diplococci.",
+            "blood_cbc": "WBC 22,000 with bandemia"
         },
         "correct_diagnosis": "bacterial_meningitis",
         "correct_treatment": "iv_antibiotics",
         "difficulty": "hard",
+        "esi_level": 1,
+        "initial_presentation": "20M, severe headache x 24h, neck stiffness, photophobia, fever 102.5F. College dormitory resident.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
             "family_history": "Non-contributory.",
             "allergies": "None.",
-            "social_history": "Non-contributory."
+            "social_history": "College freshman living in dormitory. Roommate was recently ill.",
+            "onset": "Started with a headache yesterday that kept getting worse. Light hurts my eyes.",
+            "pain_scale": "8 out of 10, constant throbbing headache.",
+            "medications": "None."
         }
     },
     {
         "id": "P010",
         "initial_symptoms": "Patient presents with a red, swollen, intensely painful right big toe that started overnight.",
-        "vitals": {
-            "HR": "85",
-            "BP": "130/80",
-            "Temp": "99.2F",
-            "RR": "16"
-        },
+        "vitals": {"HR": "85", "BP": "130/80", "Temp": "99.2F", "RR": "16", "SpO2": "99%"},
         "exam_findings": {
             "extremity": "Right first metatarsophalangeal joint is erythematous, warm, and exquisitely tender to touch."
         },
         "test_results": {
-            "joint_aspiration": "Negatively birefringent needle-shaped crystals. WBC 20,000.",
-            "blood_uric_acid": "8.5 mg/dL"
+            "joint_aspiration": "Negatively birefringent needle-shaped crystals under polarized microscopy. WBC 20,000.",
+            "blood_uric_acid": "8.5 mg/dL (Elevated)"
         },
         "correct_diagnosis": "gout",
         "correct_treatment": "nsaids",
         "difficulty": "easy",
+        "esi_level": 4,
+        "initial_presentation": "55M, acute onset painful swollen right great toe overnight. Reports heavy red meat consumption.",
+        "comorbidities": ["hypertension", "chronic_kidney_disease_stage_2"],
+        "current_medications": ["hydrochlorothiazide"],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
-            "family_history": "Non-contributory.",
+            "family_history": "Father had gout.",
             "allergies": "None.",
-            "social_history": "Non-contributory."
+            "social_history": "Drinks beer regularly. Had steak dinner last night.",
+            "onset": "Woke up with my toe on fire. Can't even put a sheet on it.",
+            "pain_scale": "8 out of 10.",
+            "medications": "Hydrochlorothiazide 25mg daily for blood pressure."
         }
     },
     {
         "id": "P011",
         "initial_symptoms": "Patient reports sudden onset tearing chest pain radiating to the back.",
-        "vitals": {
-            "HR": "120",
-            "BP": "180/100 (Right Arm), 120/80 (Left Arm)",
-            "Temp": "98.6F",
-            "RR": "24"
-        },
+        "vitals": {"HR": "120", "BP": "180/100 (Right Arm), 120/80 (Left Arm)", "Temp": "98.6F", "RR": "24", "SpO2": "95%"},
         "exam_findings": {
-            "chest": "Clear lungs. Diastolic murmur. Asymmetric pulses.",
-            "neurological": "Awake, alert. No focal defects."
+            "chest": "Clear lungs. Diastolic murmur of aortic regurgitation. Asymmetric pulses.",
+            "neurological": "Awake, alert. No focal defects.",
+            "cardiovascular": ">20 mmHg blood pressure differential between arms."
         },
         "test_results": {
             "ecg": "Sinus tachycardia, no ST elevation.",
-            "chest_xray": "Widened mediastinum.",
-            "ct_chest": "Intimal flap seen in ascending aorta."
+            "chest_xray": "Widened mediastinum (>8cm).",
+            "ct_chest": "Stanford Type A intimal flap seen in ascending aorta extending to arch."
         },
         "correct_diagnosis": "aortic_dissection",
         "correct_treatment": "surgery_and_beta_blockers",
         "difficulty": "expert",
+        "esi_level": 1,
+        "initial_presentation": "62M, sudden tearing chest/back pain. BP asymmetry between arms. Known uncontrolled HTN.",
+        "comorbidities": ["hypertension", "marfan_syndrome"],
+        "current_medications": ["amlodipine"],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
-            "family_history": "Father had hypertension.",
+            "family_history": "Father had hypertension. Brother died suddenly at 50.",
             "allergies": "None.",
-            "social_history": "Smokes extensively."
+            "social_history": "Smokes extensively. Heavy cocaine use in past.",
+            "onset": "Felt like my chest was being ripped apart. Pain shot straight through to my back.",
+            "pain_scale": "10 out of 10, tearing quality.",
+            "medications": "Amlodipine 10mg, but admits poor compliance."
         }
     },
     {
         "id": "P012",
         "initial_symptoms": "Female patient presents with severe right lower quadrant (RLQ) abdominal pain and lightheadedness.",
-        "vitals": {
-            "HR": "130",
-            "BP": "85/50",
-            "Temp": "98.9F",
-            "RR": "22"
-        },
+        "vitals": {"HR": "130", "BP": "85/50", "Temp": "98.9F", "RR": "22", "SpO2": "97%"},
         "exam_findings": {
             "abdomen": "Severe RLQ tenderness with guarding. Pale skin.",
-            "pelvic": "Cervical motion tenderness, right adnexal mass."
+            "pelvic": "Cervical motion tenderness, right adnexal mass palpable."
         },
         "test_results": {
-            "blood_hcg": "Positive (Elevated)",
+            "blood_hcg": "Positive beta-hCG: 5,200 mIU/mL",
             "ultrasound_pelvis": "Empty uterus, complex mass in right adnexa with free fluid in pelvis.",
-            "blood_cbc": "Hemoglobin 7.0 (Low, acute hemorrhage)"
+            "blood_cbc": "Hemoglobin 7.0 g/dL (Low, acute hemorrhage). Type and crossmatch ordered."
         },
         "correct_diagnosis": "ectopic_pregnancy",
         "correct_treatment": "emergency_surgery",
         "difficulty": "expert",
+        "esi_level": 1,
+        "initial_presentation": "29F, acute RLQ pain, syncope, hypotension. LMP 7 weeks ago. Tachycardic.",
+        "comorbidities": ["prior_pid", "prior_ectopic"],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
         "interview_responses": {
             "family_history": "Non-contributory.",
             "allergies": "None.",
-            "social_history": "Last menstrual period was 7 weeks ago."
+            "social_history": "Last menstrual period was 7 weeks ago. Previous ectopic pregnancy 2 years ago.",
+            "onset": "Sharp pain started 3 hours ago and has been getting worse. I fainted once.",
+            "pain_scale": "9 out of 10.",
+            "medications": "No current medications. Not on contraception."
+        }
+    },
+    {
+        "id": "P013",
+        "initial_symptoms": "Infant brought in by parents with high-pitched crying, drawing up legs, and episodes of lethargy with bloody stool.",
+        "vitals": {"HR": "160", "BP": "N/A (Infant)", "Temp": "100.4F", "RR": "40", "SpO2": "97%"},
+        "exam_findings": {
+            "abdomen": "Palpable sausage-shaped mass in right upper quadrant. Distended. Dance's sign positive (empty RLQ).",
+            "general": "Infant alternates between inconsolable crying and lethargy. Pale."
+        },
+        "test_results": {
+            "ultrasound_abdomen": "Target sign (concentric rings) consistent with ileocolic intussusception. No perforation.",
+            "blood_cbc": "WBC 14,000. Hemoglobin 10.5."
+        },
+        "correct_diagnosis": "intussusception",
+        "correct_treatment": "air_enema_reduction",
+        "difficulty": "expert",
+        "esi_level": 2,
+        "initial_presentation": "9-month-old M, episodic crying with leg drawing x 8h, currant jelly stool, intermittent lethargy.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "No family history of GI disorders.",
+            "allergies": "None known.",
+            "social_history": "Fully vaccinated. No recent illness.",
+            "onset": "Started crying and pulling up legs this morning. Had one bloody stool that looked like jelly.",
+            "pain_scale": "Severe (inconsolable intermittent crying).",
+            "medications": "None."
+        }
+    },
+    {
+        "id": "P014",
+        "initial_symptoms": "Elderly patient found on floor, confused, with right hip pain and inability to bear weight.",
+        "vitals": {"HR": "95", "BP": "150/85", "Temp": "97.8F", "RR": "20", "SpO2": "96%"},
+        "exam_findings": {
+            "extremity": "Right leg shortened and externally rotated. Severe pain with passive range of motion.",
+            "neurological": "Confused, oriented to person only. CAM positive for delirium.",
+            "general": "Dry mucous membranes. Multiple bruises on arms."
+        },
+        "test_results": {
+            "xray_hip": "Displaced subcapital femoral neck fracture, right.",
+            "blood_cbc": "WBC 9,000, Hemoglobin 10.2",
+            "bmp": "Creatinine 1.8, BUN 42. K+ 3.2 (low).",
+            "urine": "UTI screen: positive nitrites, positive leukocyte esterase."
+        },
+        "correct_diagnosis": "hip_fracture_with_delirium",
+        "correct_treatment": "surgical_fixation_and_treat_uti",
+        "difficulty": "expert",
+        "esi_level": 2,
+        "initial_presentation": "82F, found on floor, confused, right hip pain, unable to walk. Lives alone. Baseline dementia.",
+        "comorbidities": ["dementia", "osteoporosis", "hypertension", "chronic_kidney_disease_stage_3"],
+        "current_medications": ["donepezil", "alendronate", "lisinopril"],
+        "clinical_pathway": ["EXAMINE", "INTERVIEW", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Mother had osteoporosis.",
+            "allergies": "Sulfa drugs.",
+            "social_history": "Lives alone. Home health aide visits 3x/week. Baseline mild cognitive impairment.",
+            "onset": "Neighbor found me this morning. I don't remember falling.",
+            "pain_scale": "7 out of 10 in right hip.",
+            "medications": "Donepezil 10mg, Alendronate 70mg weekly, Lisinopril 20mg."
+        }
+    },
+    {
+        "id": "P015",
+        "initial_symptoms": "Patient presents with sudden severe headache described as 'the worst headache of my life', with brief loss of consciousness.",
+        "vitals": {"HR": "60", "BP": "190/110", "Temp": "99.0F", "RR": "14", "SpO2": "96%"},
+        "exam_findings": {
+            "neurological": "Nuchal rigidity. GCS 13 (E3V4M6). Left pupil sluggish. No focal motor deficits.",
+            "general": "Photophobic, vomiting."
+        },
+        "test_results": {
+            "ct_head": "Diffuse subarachnoid hemorrhage in basal cisterns. Fisher Grade 3.",
+            "ct_angiogram": "6mm saccular aneurysm at the anterior communicating artery.",
+            "blood_cbc": "WBC 12,000, Platelets 195,000"
+        },
+        "correct_diagnosis": "subarachnoid_hemorrhage",
+        "correct_treatment": "neurosurgical_clipping_and_nimodipine",
+        "difficulty": "expert",
+        "esi_level": 1,
+        "initial_presentation": "48F, thunderclap headache with syncope. Worst headache of life. Vomiting. Meningismus.",
+        "comorbidities": ["hypertension", "polycystic_kidney_disease"],
+        "current_medications": ["lisinopril", "hydrochlorothiazide"],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Mother died of brain aneurysm rupture.",
+            "allergies": "None.",
+            "social_history": "Non-smoker. Moderate alcohol use.",
+            "onset": "Was exercising when I felt a sudden explosion in my head. I passed out briefly.",
+            "pain_scale": "10 out of 10. Worst headache I have ever had.",
+            "medications": "Lisinopril 20mg, HCTZ 12.5mg daily."
+        }
+    },
+    {
+        "id": "P016",
+        "initial_symptoms": "Patient presents with progressive dyspnea, wheezing, barrel chest, and chronic productive cough worsening over 3 days.",
+        "vitals": {"HR": "105", "BP": "135/85", "Temp": "100.2F", "RR": "30", "SpO2": "85%"},
+        "exam_findings": {
+            "chest": "Diffuse expiratory wheezes and rhonchi bilaterally. Prolonged expiratory phase. Accessory muscle use. Pursed lip breathing.",
+            "general": "Cyanotic nail beds. Appears in moderate respiratory distress."
+        },
+        "test_results": {
+            "abg": "pH 7.32, pCO2 55, pO2 52, HCO3 28 — acute on chronic respiratory acidosis.",
+            "chest_xray": "Hyperinflated lungs with flattened diaphragms. Right lower lobe infiltrate suggesting superimposed infection.",
+            "blood_cbc": "WBC 15,000",
+            "sputum_culture": "Gram stain: gram-negative rods. Culture pending."
+        },
+        "correct_diagnosis": "copd_exacerbation",
+        "correct_treatment": "bronchodilators_steroids_antibiotics",
+        "difficulty": "hard",
+        "esi_level": 2,
+        "initial_presentation": "70M, COPD on home O2, worsening dyspnea x 3d, increased sputum (now purulent). SpO2 85% on RA.",
+        "comorbidities": ["copd_gold_stage_3", "cor_pulmonale", "former_smoker"],
+        "current_medications": ["tiotropium", "fluticasone_salmeterol", "home_oxygen_2L"],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Non-contributory.",
+            "allergies": "None.",
+            "social_history": "40 pack-year smoking history. Quit 5 years ago. On home oxygen 2L/min.",
+            "onset": "My breathing has been getting worse for 3 days. Coughing up thick green stuff.",
+            "pain_scale": "2 out of 10, chest tightness.",
+            "medications": "Tiotropium, Advair, Home oxygen 2L nasal cannula."
+        }
+    },
+    {
+        "id": "P017",
+        "initial_symptoms": "Patient presents with acute confusion, muscle rigidity, and high fever shortly after starting a new antipsychotic medication.",
+        "vitals": {"HR": "130", "BP": "160/100", "Temp": "106.2F", "RR": "28", "SpO2": "94%"},
+        "exam_findings": {
+            "neurological": "Severe lead-pipe rigidity in all extremities. Altered mental status. Diaphoresis.",
+            "general": "Profuse sweating, tremor, marked agitation."
+        },
+        "test_results": {
+            "blood_ck": "CK 12,500 IU/L (massively elevated, rhabdomyolysis risk).",
+            "blood_cbc": "WBC 16,000",
+            "bmp": "K+ 5.5, Creatinine 2.1 (elevated from myoglobin nephrotoxicity).",
+            "iron_studies": "Serum iron low."
+        },
+        "correct_diagnosis": "neuroleptic_malignant_syndrome",
+        "correct_treatment": "dantrolene_and_cooling",
+        "difficulty": "expert",
+        "esi_level": 1,
+        "initial_presentation": "35M, new onset confusion, rigidity, hyperthermia 106F. Started haloperidol 3 days ago. Diaphoretic.",
+        "comorbidities": ["schizophrenia"],
+        "current_medications": ["haloperidol"],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Non-contributory.",
+            "allergies": "None known.",
+            "social_history": "Lives in group home. Recently started new antipsychotic (haloperidol) 3 days ago.",
+            "onset": "Staff noticed he became confused and stiff yesterday. Temperature kept climbing.",
+            "pain_scale": "Unable to assess due to altered mental status.",
+            "medications": "Haloperidol 5mg IM, started 3 days ago. Previously on risperidone."
+        }
+    },
+    {
+        "id": "P018",
+        "initial_symptoms": "Patient presents with severe epigastric pain radiating to the back, nausea, and vomiting after heavy alcohol binge.",
+        "vitals": {"HR": "115", "BP": "105/65", "Temp": "100.8F", "RR": "22", "SpO2": "96%"},
+        "exam_findings": {
+            "abdomen": "Severe epigastric tenderness with guarding. Decreased bowel sounds. Cullen's sign (periumbilical bruising).",
+            "general": "Appears acutely ill, jaundiced sclera."
+        },
+        "test_results": {
+            "lipase": "Lipase 1,250 U/L (>3x upper normal limit, diagnostic for acute pancreatitis).",
+            "blood_cbc": "WBC 17,000, Hematocrit 48%",
+            "bmp": "BUN 28, Glucose 220, Calcium 7.8 (low — Ranson criteria positive).",
+            "ct_abdomen": "Edematous pancreas with peripancreatic fluid collection. No necrosis."
+        },
+        "correct_diagnosis": "acute_pancreatitis",
+        "correct_treatment": "iv_fluids_pain_control_npo",
+        "difficulty": "hard",
+        "esi_level": 2,
+        "initial_presentation": "44M, severe epigastric pain to back after heavy drinking. Vomiting x 6h. Jaundiced.",
+        "comorbidities": ["alcohol_use_disorder", "hyperlipidemia"],
+        "current_medications": [],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Non-contributory.",
+            "allergies": "None.",
+            "social_history": "Heavy drinker, 12+ beers per day. Previous episodes of similar pain.",
+            "onset": "Pain started after drinking heavily last night. Went straight through to my back.",
+            "pain_scale": "10 out of 10. Leaning forward helps slightly.",
+            "medications": "None. Does not take prescribed medications."
+        }
+    },
+    {
+        "id": "P019",
+        "initial_symptoms": "Patient presents with severe allergic reaction: diffuse urticaria, lip/tongue swelling, and difficulty breathing after eating shellfish.",
+        "vitals": {"HR": "135", "BP": "75/45", "Temp": "98.6F", "RR": "32", "SpO2": "88%"},
+        "exam_findings": {
+            "airway": "Marked angioedema of lips, tongue, and uvula. Stridor. Difficulty swallowing.",
+            "chest": "Diffuse wheezing bilaterally.",
+            "skin": "Generalized urticaria and flushing over entire body."
+        },
+        "test_results": {
+            "tryptase": "Serum tryptase elevated (confirms mast cell degranulation).",
+            "abg": "pH 7.38, pCO2 32, pO2 62 — hypoxemia with mild respiratory alkalosis."
+        },
+        "correct_diagnosis": "anaphylaxis",
+        "correct_treatment": "epinephrine_im",
+        "difficulty": "hard",
+        "esi_level": 1,
+        "initial_presentation": "32F, diffuse hives, lip swelling, wheezing, hypotension after eating shrimp 20 min ago. Stridor.",
+        "comorbidities": ["asthma", "prior_allergic_reactions"],
+        "current_medications": ["albuterol_prn", "cetirizine"],
+        "clinical_pathway": ["EXAMINE", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Mother has severe allergies.",
+            "allergies": "Known shellfish allergy — accidentally consumed shrimp in a dish.",
+            "social_history": "Carries EpiPen but left it at home today.",
+            "onset": "About 20 minutes after eating. Started with itching, then lips swelled up, now hard to breathe.",
+            "pain_scale": "3 out of 10, throat tightness is the main concern.",
+            "medications": "Albuterol inhaler PRN, Cetirizine 10mg daily."
+        }
+    },
+    {
+        "id": "P020",
+        "initial_symptoms": "Patient presents with progressive weakness, fatigue, hyperpigmentation of skin creases, and dizziness upon standing.",
+        "vitals": {"HR": "110", "BP": "80/50", "Temp": "99.5F", "RR": "18", "SpO2": "98%"},
+        "exam_findings": {
+            "general": "Hyperpigmented skin especially in palmar creases and buccal mucosa. Cachectic. Orthostatic hypotension (>20 mmHg drop on standing).",
+            "abdomen": "Mild diffuse tenderness."
+        },
+        "test_results": {
+            "cortisol_am": "Cortisol < 3 mcg/dL (critically low).",
+            "acth": "ACTH > 200 pg/mL (markedly elevated — primary adrenal insufficiency).",
+            "bmp": "Na 128 (low), K+ 5.9 (high), Glucose 55 (hypoglycemia)."
+        },
+        "correct_diagnosis": "addisonian_crisis",
+        "correct_treatment": "iv_hydrocortisone_and_fluids",
+        "difficulty": "expert",
+        "esi_level": 2,
+        "initial_presentation": "38F, progressive fatigue x 3mo, now acutely hypotensive, confused. Dark skin pigmentation. Salt craving.",
+        "comorbidities": ["hypothyroidism", "autoimmune_history"],
+        "current_medications": ["levothyroxine"],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Sister has lupus. Mother has hypothyroidism.",
+            "allergies": "None.",
+            "social_history": "Has been craving salt for months. Noticed skin getting darker.",
+            "onset": "Been feeling weak for months but got much worse this week. Almost fainted twice today.",
+            "pain_scale": "4 out of 10, general body aches.",
+            "medications": "Levothyroxine 75mcg daily."
+        }
+    },
+    {
+        "id": "P021",
+        "initial_symptoms": "Patient presents with upper GI bleeding: hematemesis (coffee-ground emesis) and melena.",
+        "vitals": {"HR": "125", "BP": "90/55", "Temp": "98.2F", "RR": "22", "SpO2": "96%"},
+        "exam_findings": {
+            "abdomen": "Epigastric tenderness, hepatomegaly. Spider angiomata on chest. Palmar erythema.",
+            "general": "Pale, diaphoretic. Signs of chronic liver disease."
+        },
+        "test_results": {
+            "blood_cbc": "Hemoglobin 6.8 g/dL (severe anemia), Platelets 85,000 (thrombocytopenia).",
+            "bmp": "BUN 45, Creatinine 1.1.",
+            "coagulation": "INR 1.8, PT prolonged.",
+            "liver_panel": "AST 120, ALT 85, Albumin 2.1 (low)."
+        },
+        "correct_diagnosis": "variceal_hemorrhage",
+        "correct_treatment": "transfusion_octreotide_endoscopy",
+        "difficulty": "expert",
+        "esi_level": 1,
+        "initial_presentation": "56M, vomiting blood (coffee-ground), black tarry stools x 2. Known cirrhosis. Hypotensive.",
+        "comorbidities": ["cirrhosis", "alcohol_use_disorder", "portal_hypertension"],
+        "current_medications": ["propranolol", "lactulose", "spironolactone"],
+        "clinical_pathway": ["EXAMINE", "TEST", "STABILIZE", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Non-contributory.",
+            "allergies": "None.",
+            "social_history": "Active alcoholic. Diagnosed with cirrhosis 2 years ago. Previous variceal banding.",
+            "onset": "Started vomiting dark blood this morning. Had 3 episodes. Black stool for 2 days.",
+            "pain_scale": "5 out of 10, epigastric.",
+            "medications": "Propranolol 40mg BID, Lactulose, Spironolactone 100mg."
+        }
+    },
+    {
+        "id": "P022",
+        "initial_symptoms": "Child presents with barking cough, inspiratory stridor, and low-grade fever for 2 days.",
+        "vitals": {"HR": "130", "BP": "N/A (Pediatric)", "Temp": "100.5F", "RR": "36", "SpO2": "93%"},
+        "exam_findings": {
+            "airway": "Audible inspiratory stridor at rest. Barking seal-like cough. Mild intercostal retractions.",
+            "chest": "Transmitted upper airway sounds. No wheezing. Air entry adequate bilaterally."
+        },
+        "test_results": {
+            "neck_xray": "Steeple sign — subglottic narrowing consistent with croup.",
+            "blood_cbc": "WBC 10,000 (normal, consistent with viral etiology)."
+        },
+        "correct_diagnosis": "croup",
+        "correct_treatment": "dexamethasone_and_racemic_epinephrine",
+        "difficulty": "hard",
+        "esi_level": 2,
+        "initial_presentation": "3-year-old M, barking cough x 2d, stridor at rest, low fever. URI symptoms preceded.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Non-contributory.",
+            "allergies": "None known.",
+            "social_history": "Attends daycare. Several children in class have been sick.",
+            "onset": "Had a runny nose 3 days ago, then developed this barking cough. Worse at night.",
+            "pain_scale": "Child is irritable but consolable.",
+            "medications": "None."
+        }
+    },
+    {
+        "id": "P023",
+        "initial_symptoms": "Patient presents with sudden painless loss of vision in the right eye described as a curtain being pulled down.",
+        "vitals": {"HR": "78", "BP": "165/95", "Temp": "98.6F", "RR": "16", "SpO2": "98%"},
+        "exam_findings": {
+            "ophthalmologic": "Right eye: absent direct pupillary reflex (Marcus Gunn pupil). Fundoscopy: pale retina with cherry-red spot at macula. Box-car segmentation of retinal vessels.",
+            "cardiovascular": "Carotid bruit auscultated on right."
+        },
+        "test_results": {
+            "carotid_doppler": "70% stenosis of right internal carotid artery.",
+            "ecg": "Normal sinus rhythm. No atrial fibrillation.",
+            "esr": "12 mm/hr (normal, rules out giant cell arteritis)."
+        },
+        "correct_diagnosis": "central_retinal_artery_occlusion",
+        "correct_treatment": "emergent_thrombolysis_or_massage",
+        "difficulty": "expert",
+        "esi_level": 2,
+        "initial_presentation": "68M, sudden painless complete vision loss right eye x 2h. Like a curtain fell. HTN, carotid bruit.",
+        "comorbidities": ["hypertension", "hyperlipidemia", "carotid_stenosis"],
+        "current_medications": ["atorvastatin", "aspirin", "lisinopril"],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Father had stroke.",
+            "allergies": "None.",
+            "social_history": "Former smoker. Takes medications regularly.",
+            "onset": "Was reading the newspaper and suddenly the vision in my right eye went completely black.",
+            "pain_scale": "0 out of 10. No pain at all.",
+            "medications": "Atorvastatin 80mg, Aspirin 81mg, Lisinopril 40mg daily."
+        }
+    },
+    {
+        "id": "P024",
+        "initial_symptoms": "Diabetic patient presents with crushing chest pain, nausea, and shortness of breath. ECG shows new LBBB.",
+        "vitals": {"HR": "100", "BP": "145/88", "Temp": "98.6F", "RR": "24", "SpO2": "93%"},
+        "exam_findings": {
+            "chest": "Bibasilar crackles (pulmonary edema). S3 gallop.",
+            "cardiovascular": "Elevated JVP. Bilateral pedal edema.",
+            "general": "Diaphoretic, appears distressed."
+        },
+        "test_results": {
+            "ecg": "New left bundle branch block (LBBB). Previously normal ECG on file.",
+            "blood_troponin": "Troponin I: 2.4 ng/mL (markedly elevated).",
+            "bnp": "BNP 1,200 pg/mL (elevated, acute heart failure).",
+            "chest_xray": "Bilateral pulmonary edema, cardiomegaly."
+        },
+        "correct_diagnosis": "stemi_with_heart_failure",
+        "correct_treatment": "emergent_pci_and_diuretics",
+        "difficulty": "expert",
+        "esi_level": 1,
+        "initial_presentation": "65M, diabetic, crushing chest pain, SOB, new LBBB on ECG. Bilateral crackles. S3 gallop.",
+        "comorbidities": ["diabetes_type_2", "hypertension", "obesity", "previous_mi"],
+        "current_medications": ["metformin", "glipizide", "lisinopril", "aspirin", "atorvastatin"],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Father died of MI at 58. Mother has diabetes.",
+            "allergies": "None.",
+            "social_history": "Former smoker. Sedentary. Non-compliant with diet.",
+            "onset": "Chest felt heavy 4 hours ago. Got worse, started sweating and couldn't breathe lying down.",
+            "pain_scale": "8 out of 10, pressure-like.",
+            "medications": "Metformin 1000mg BID, Glipizide 5mg, Lisinopril 20mg, Aspirin 81mg, Atorvastatin 40mg."
+        }
+    },
+    {
+        "id": "P025",
+        "initial_symptoms": "Patient found unresponsive with pinpoint pupils, shallow breathing, and a used syringe nearby.",
+        "vitals": {"HR": "52", "BP": "85/50", "Temp": "96.8F", "RR": "6", "SpO2": "78%"},
+        "exam_findings": {
+            "neurological": "GCS 3 (E1V1M1). Pinpoint pupils bilaterally. No response to pain.",
+            "airway": "Shallow, agonal breathing. Cyanotic lips and extremities.",
+            "general": "Track marks on bilateral antecubital fossae."
+        },
+        "test_results": {
+            "urine_tox": "Positive for opioids, negative for benzodiazepines.",
+            "abg": "pH 7.18, pCO2 72, pO2 45 — severe respiratory acidosis with hypoxemia.",
+            "blood_glucose": "95 mg/dL (normal, rules out hypoglycemia)."
+        },
+        "correct_diagnosis": "opioid_overdose",
+        "correct_treatment": "naloxone_and_ventilatory_support",
+        "difficulty": "hard",
+        "esi_level": 1,
+        "initial_presentation": "27M, found unresponsive, pinpoint pupils, RR 6, SpO2 78%. Syringe at scene. Track marks.",
+        "comorbidities": ["opioid_use_disorder", "hepatitis_c"],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "STABILIZE", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Unable to obtain — patient unresponsive.",
+            "allergies": "Unknown.",
+            "social_history": "Known IV heroin user per EMS. Multiple prior overdose reversals.",
+            "onset": "Found by roommate approximately 30 minutes ago. Unknown substance or amount.",
+            "pain_scale": "Unable to assess.",
+            "medications": "Unknown. Was previously on buprenorphine but stopped."
+        }
+    },
+    {
+        "id": "P026",
+        "initial_symptoms": "Patient presents with sudden onset of severe testicular pain, nausea, and a high-riding left testicle.",
+        "vitals": {"HR": "100", "BP": "130/85", "Temp": "98.8F", "RR": "18", "SpO2": "99%"},
+        "exam_findings": {
+            "genitourinary": "Left testicle is high-riding, horizontally oriented (bell-clapper deformity). Absent cremasteric reflex. Exquisitely tender. Negative Prehn's sign.",
+            "abdomen": "Mild lower abdominal tenderness."
+        },
+        "test_results": {
+            "doppler_ultrasound_testicular": "Absent blood flow to left testicle. Right testicle normal.",
+            "urine": "No WBCs, no bacteria (rules out epididymitis)."
+        },
+        "correct_diagnosis": "testicular_torsion",
+        "correct_treatment": "emergency_surgical_detorsion",
+        "difficulty": "hard",
+        "esi_level": 2,
+        "initial_presentation": "16M, acute left testicular pain x 3h, nausea. High-riding testicle. Absent cremasteric reflex.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Non-contributory.",
+            "allergies": "None.",
+            "social_history": "High school student. Was playing basketball when pain started.",
+            "onset": "Sudden sharp pain in my left testicle 3 hours ago during a basketball game.",
+            "pain_scale": "10 out of 10.",
+            "medications": "None."
+        }
+    },
+    {
+        "id": "P027",
+        "initial_symptoms": "Patient presents with gradually worsening bilateral leg swelling, facial puffiness, and foamy urine.",
+        "vitals": {"HR": "82", "BP": "150/95", "Temp": "98.4F", "RR": "16", "SpO2": "97%"},
+        "exam_findings": {
+            "general": "Periorbital edema, anasarca. 3+ pitting edema bilateral lower extremities.",
+            "chest": "Decreased breath sounds at bilateral bases (pleural effusions).",
+            "abdomen": "Ascites with shifting dullness."
+        },
+        "test_results": {
+            "urine": "Protein 4+ (nephrotic range). Urine protein/creatinine ratio > 3.5 g/day equivalent. Lipiduria with oval fat bodies.",
+            "blood_albumin": "Albumin 1.8 g/dL (severely low).",
+            "bmp": "Creatinine 1.3, Cholesterol 380 mg/dL (elevated).",
+            "renal_biopsy": "Minimal change disease on electron microscopy (foot process effacement)."
+        },
+        "correct_diagnosis": "nephrotic_syndrome",
+        "correct_treatment": "corticosteroids_and_diuretics",
+        "difficulty": "expert",
+        "esi_level": 3,
+        "initial_presentation": "25M, progressive generalized edema x 3w, foamy urine, weight gain 8kg. BP 150/95.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["INTERVIEW", "EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "No kidney disease in family.",
+            "allergies": "None.",
+            "social_history": "Recently recovered from upper respiratory infection 4 weeks ago.",
+            "onset": "Noticed my eyes were puffy in the mornings 3 weeks ago. Legs started swelling. Urine looks foamy.",
+            "pain_scale": "1 out of 10. Just uncomfortable from swelling.",
+            "medications": "None."
+        }
+    },
+    {
+        "id": "P028",
+        "initial_symptoms": "Patient presents with high fever, diffuse erythroderma (sunburn-like rash), hypotension, and confusion during menstruation.",
+        "vitals": {"HR": "140", "BP": "70/40", "Temp": "104.5F", "RR": "28", "SpO2": "92%"},
+        "exam_findings": {
+            "skin": "Diffuse macular erythroderma (sunburn-like rash). Desquamation beginning on palms and soles.",
+            "general": "Acutely ill, confused, oliguric. Tampon present on exam.",
+            "mucous_membranes": "Hyperemia of conjunctivae, oropharynx, and vaginal mucosa."
+        },
+        "test_results": {
+            "blood_cbc": "WBC 22,000 with bandemia. Platelets 80,000 (low).",
+            "bmp": "Creatinine 3.2, BUN 55 (renal failure). AST 250, ALT 180 (liver involvement).",
+            "blood_culture": "Staphylococcus aureus isolated. TSST-1 toxin positive.",
+            "coagulation": "PT/INR elevated, fibrinogen low (early DIC)."
+        },
+        "correct_diagnosis": "toxic_shock_syndrome",
+        "correct_treatment": "iv_antibiotics_fluids_remove_tampon",
+        "difficulty": "expert",
+        "esi_level": 1,
+        "initial_presentation": "22F, high fever, diffuse red rash, hypotension, confusion. Menstruating with tampon in place x 3 days.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "TEST", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Non-contributory.",
+            "allergies": "None.",
+            "social_history": "College student. Has been using super-absorbent tampons. Current tampon in for 3 days.",
+            "onset": "Started feeling flu-like yesterday. Rash appeared overnight. Got confused this morning.",
+            "pain_scale": "Unable to assess reliably due to altered mental status.",
+            "medications": "Oral contraceptive pill only."
+        }
+    },
+    {
+        "id": "P029",
+        "initial_symptoms": "Patient presents after a motor vehicle collision with chest pain, shortness of breath, and distended neck veins.",
+        "vitals": {"HR": "135", "BP": "75/50", "Temp": "98.0F", "RR": "32", "SpO2": "82%"},
+        "exam_findings": {
+            "chest": "Absent breath sounds on the left. Tracheal deviation to the right. Hyperresonance to percussion on left.",
+            "cardiovascular": "Distended jugular veins. Muffled heart sounds.",
+            "general": "Cyanotic, severe respiratory distress, accessory muscle use."
+        },
+        "test_results": {
+            "chest_xray": "Large left tension pneumothorax with mediastinal shift to the right. No hemothorax.",
+            "fast_exam": "No free fluid in abdomen. No pericardial effusion."
+        },
+        "correct_diagnosis": "tension_pneumothorax",
+        "correct_treatment": "needle_decompression_then_chest_tube",
+        "difficulty": "hard",
+        "esi_level": 1,
+        "initial_presentation": "30M, MVC high-speed. Chest pain, dyspnea, absent left breath sounds, JVD, tracheal deviation right.",
+        "comorbidities": [],
+        "current_medications": [],
+        "clinical_pathway": ["EXAMINE", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Unable to obtain — patient in extremis.",
+            "allergies": "Unknown.",
+            "social_history": "Restrained driver, head-on collision at approximately 50 mph.",
+            "onset": "Immediately after the crash. Getting harder to breathe every minute.",
+            "pain_scale": "10 out of 10, left-sided chest.",
+            "medications": "Unknown."
+        }
+    },
+    {
+        "id": "P030",
+        "initial_symptoms": "Elderly diabetic patient presents with fever, right flank pain, pyuria, and altered mental status.",
+        "vitals": {"HR": "118", "BP": "82/48", "Temp": "103.8F", "RR": "24", "SpO2": "94%"},
+        "exam_findings": {
+            "abdomen": "Right CVA tenderness. Suprapubic tenderness.",
+            "general": "Confused, flushed, warm extremities (hyperdynamic septic shock). Dry mucous membranes.",
+            "skin": "Mottled extremities. Delayed capillary refill >3 seconds."
+        },
+        "test_results": {
+            "urine": "Turbid, WBC >100/hpf, positive nitrites, positive leukocyte esterase. Many gram-negative rods.",
+            "blood_cbc": "WBC 24,000 with 15% bands. Platelets 110,000.",
+            "lactate": "Lactate 4.8 mmol/L (elevated — tissue hypoperfusion).",
+            "blood_culture": "Pending. Gram stain: gram-negative rods (likely E. coli).",
+            "bmp": "Creatinine 2.8 (AKI on CKD), Glucose 350."
+        },
+        "correct_diagnosis": "urosepsis",
+        "correct_treatment": "iv_antibiotics_fluids_vasopressors",
+        "difficulty": "expert",
+        "esi_level": 1,
+        "initial_presentation": "78F, diabetic, fever 103.8F, confusion, right flank pain, hypotension. Lactate 4.8. Pyuria.",
+        "comorbidities": ["diabetes_type_2", "chronic_kidney_disease_stage_3", "neurogenic_bladder", "recurrent_utis"],
+        "current_medications": ["insulin_glargine", "metformin", "lisinopril"],
+        "clinical_pathway": ["EXAMINE", "TEST", "STABILIZE", "DIAGNOSE", "TREAT"],
+        "interview_responses": {
+            "family_history": "Non-contributory.",
+            "allergies": "Fluoroquinolones (causes tendon pain).",
+            "social_history": "Nursing home resident. Foley catheter in place. Multiple prior UTIs.",
+            "onset": "Staff noted confusion and fever starting yesterday. She complained of back pain.",
+            "pain_scale": "Unable to reliably assess due to confusion.",
+            "medications": "Insulin Glargine 20 units nightly, Metformin 500mg BID, Lisinopril 10mg."
         }
     }
 ]

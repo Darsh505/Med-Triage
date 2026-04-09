@@ -15,6 +15,11 @@ class PatientScenario:
     correct_treatment: str
     difficulty: str = "easy"
     interview_responses: Dict[str, str] = field(default_factory=dict)
+    esi_level: int = 3  # Emergency Severity Index 1-5 (1=most critical)
+    initial_presentation: str = ""  # Triage nurse intake note
+    comorbidities: list = field(default_factory=list)
+    current_medications: list = field(default_factory=list)
+    clinical_pathway: list = field(default_factory=list)  # Optimal action ordering
 
 
 # Compute absolute path to data file

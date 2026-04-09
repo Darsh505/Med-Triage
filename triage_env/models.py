@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from openenv.core.env_server.types import Action, Observation, State
 from pydantic import Field
@@ -12,6 +12,7 @@ class ActionType(str, Enum):
     TREAT = "TREAT"
     CONSULT = "CONSULT"
     INTERVIEW = "INTERVIEW"
+    STABILIZE = "STABILIZE"  # Manage vitals before definitive treatment
 
 
 class MedAction(Action):
@@ -21,7 +22,7 @@ class MedAction(Action):
 
     action_type: ActionType = Field(
         ...,
-        description="The type of action to perform: EXAMINE, TEST, DIAGNOSE, TREAT",
+        description="The type of action to perform: EXAMINE, TEST, DIAGNOSE, TREAT, STABILIZE",
     )
     target: str = Field(
         ...,
@@ -40,11 +41,11 @@ class MedObservation(Observation):
 
     terminal_output: str = Field(
         ...,
-        description="The main text feedback from the environment, e.g., initial symptoms or test results.",
+        description="The main text feedback from the environment.",
     )
     patient_vitals: Dict[str, Any] = Field(
         default_factory=dict,
-        description="Known patient vitals.",
+        description="Known patient vitals (HR, BP, Temp, RR, SpO2).",
     )
     test_results: Dict[str, Any] = Field(
         default_factory=dict,
@@ -56,7 +57,7 @@ class MedObservation(Observation):
     )
     truncated: bool = Field(
         False,
-        description="Whether the episode was truncated due to max steps boundary limit.",
+        description="Whether the episode was truncated due to max steps or patient crash.",
     )
     time_elapsed: int = Field(
         0,
@@ -68,11 +69,28 @@ class MedObservation(Observation):
     )
     reward: float = Field(
         0.0,
-        description="The reward accumulated from the last step.",
+        description="The reward from the last step.",
     )
     available_actions: Dict[str, list[str]] = Field(
         default_factory=dict,
-        description="A list of allowed target strings dynamically enumerated for each ActionType.",
+        description="Allowed target strings for each ActionType.",
+    )
+    # --- Advanced observation fields ---
+    medications_administered: List[str] = Field(
+        default_factory=list,
+        description="Medications given during this episode (for interaction checking).",
+    )
+    esi_level: int = Field(
+        3,
+        description="Emergency Severity Index (1=resuscitation, 5=non-urgent).",
+    )
+    clinical_notes: List[str] = Field(
+        default_factory=list,
+        description="Running log of significant clinical events this episode.",
+    )
+    sepsis_risk: float = Field(
+        0.0,
+        description="Computed sepsis risk score (0.0 = none, 1.0 = septic shock).",
     )
 
 
@@ -89,4 +107,23 @@ class MedState(State):
     audit_trail: list[dict] = Field(
         default_factory=list,
         description="A trace logger of action targets and rewards.",
+    )
+    # --- Advanced state fields ---
+    differential_diagnoses: List[str] = Field(
+        default_factory=list,
+        description="Running list of differential diagnoses considered by the agent.",
+    )
+    evidence_gathered: Dict[str, str] = Field(
+        default_factory=dict,
+        description="Map of evidence type to finding for clinical reasoning.",
+    )
+    pathway_score: float = Field(
+        0.0, description="Score for following optimal clinical pathway."
+    )
+    diagnostic_efficiency: float = Field(
+        0.0, description="Ratio of useful tests ordered vs total tests."
+    )
+    interviews_conducted: List[str] = Field(
+        default_factory=list,
+        description="Track which interview topics have been covered.",
     )

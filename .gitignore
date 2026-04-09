@@ -2,3 +2,9 @@ venv/
 __pycache__/
 .pytest_cache/
 .ruff_cache/
+med_triage_env.egg-info/
+reports/
+.mypy_cache/
+.ruff_cache/
+venv/
+.venv/
