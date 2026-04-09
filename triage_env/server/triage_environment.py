@@ -260,7 +260,7 @@ class TriageEnvironment(Environment):
                         f"# Medical Discharge Report\n\n**Patient ID:** {self._current_patient.id}\n"
                     )
                     f.write(
-                        f"**Presentation:** {self._current_patient.initial_presentation}\n\n## Timeline Log\n"
+                        f"**Presentation:** {self._current_patient.initial_symptoms}\n\n## Timeline Log\n"
                     )
                     for audit in self._state.audit_trail:
                         f.write(
