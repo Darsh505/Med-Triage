@@ -115,23 +115,20 @@ def parse_llm_action(response_text: str, available_actions: dict, step: int) -> 
     return MedAction(action_type=ActionType.EXAMINE, target="abdomen"), "Fallback examination"
 
 
-def run_inference():
-    """Run inference with chain-of-thought clinical reasoning."""
-    # Read hackathon-provided environment variables — API_KEY is primary
-    api_base_url = os.environ.get("API_BASE_URL", "https://api.openai.com/v1")
-    api_key = os.environ.get("API_KEY", os.environ.get("OPENAI_API_KEY", "no-key"))
-    model_name = os.environ.get("MODEL_NAME", "gpt-4o-mini")
+def clamp_score(raw_reward: float) -> float:
+    """Clamp raw reward to strictly between 0 and 1 (exclusive) as validator requires."""
+    # Normalize: our rewards typically range from -5 to +3
+    # Map to (0, 1) using a sigmoid-like transform
+    normalized = (raw_reward + 5.0) / 10.0  # maps [-5, 5] -> [0, 1]
+    return max(0.01, min(0.99, normalized))
 
-    # Initialize OpenAI client pointing at the hackathon's LiteLLM proxy
-    client = OpenAI(
-        base_url=api_base_url,
-        api_key=api_key,
-    )
 
-    env = TriageEnvironment(difficulty="hard")
+def run_single_task(client: OpenAI, model_name: str, task_name: str, difficulty: str):
+    """Run a single task (patient episode) with structured output."""
+    env = TriageEnvironment(difficulty=difficulty)
     obs = env.reset()
 
-    print("[START] task=med_triage", flush=True)
+    print(f"[START] task={task_name}", flush=True)
 
     step = 0
     total_reward = 0.0
@@ -175,8 +172,33 @@ def run_inference():
         if step >= 20:
             break
 
-    print(f"[END] task=med_triage score={total_reward} steps={step}", flush=True)
+    # Clamp score to strictly (0, 1) as validator requires
+    final_score = clamp_score(total_reward)
+    print(f"[END] task={task_name} score={final_score} steps={step}", flush=True)
+
+
+def run_inference():
+    """Run 3 tasks across different difficulties to satisfy validator requirements."""
+    api_base_url = os.environ.get("API_BASE_URL", "https://api.openai.com/v1")
+    api_key = os.environ.get("API_KEY", os.environ.get("OPENAI_API_KEY", "no-key"))
+    model_name = os.environ.get("MODEL_NAME", "gpt-4o-mini")
+
+    client = OpenAI(
+        base_url=api_base_url,
+        api_key=api_key,
+    )
+
+    # Run 3 tasks with different difficulty levels
+    tasks = [
+        ("med_triage_easy", "easy"),
+        ("med_triage_hard", "hard"),
+        ("med_triage_expert", "expert"),
+    ]
+
+    for task_name, difficulty in tasks:
+        run_single_task(client, model_name, task_name, difficulty)
 
 
 if __name__ == "__main__":
     run_inference()
+
